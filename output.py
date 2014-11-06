@@ -4,6 +4,7 @@ import glob
 import human_readable
 import stat
 
+#传递一个路径，以及-a -A的开启情况，返回路径下的文件名单(可能为绝对路径)
 def get_filename_list(path, a_on = False, A_on = False):
     '''input a path and return a list of the files'''
 
@@ -22,7 +23,7 @@ def get_filename_list(path, a_on = False, A_on = False):
         print('error:path does not exist')
         exit()
 
-
+#根据各参数(-l -n -i -H)启用情况，以及文件路径，返回信息行用于输出
 def gen_line(path, l_on = False, n_on = False, i_on = False, h_on = False):
     '''input a filename or path and return a line'''
 

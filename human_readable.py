@@ -4,9 +4,8 @@ import grp
 import pwd
 import stat
 
-
+#将文件大小转换成可读形式
 def size_convert(size):
-
     '''convert the size to human-readable form'''
 
     SUFFIXES = ['KiB','MiB','GiB','TiB','PiB']
@@ -18,8 +17,8 @@ def size_convert(size):
         else:
             raise ValueError('number too large.')
 
+#根据st_mode生成mode信息(例如-rwxrwxrwx)
 def mode_convert(st_mode):
-
     '''convert the bin-number-form mode to rwx-form'''
 
     mode     = list(bin(st_mode)[-12:])         #for list.pop()
@@ -80,8 +79,8 @@ def mode_convert(st_mode):
     return mode_return
 
 
+#把unix纪元时转换成YY MM DD HH:MM的形式
 def time_convert(time_unreadable):
-
     '''convert the time to human-readable form'''
 
     MONTHS = {1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May', 6:'Jun', 7:'Jul', 8:'Aus', 9:'Sep', 10:'Oct', 11:'Nov', 12:'Dec'}
@@ -91,7 +90,7 @@ def time_convert(time_unreadable):
 
     return time_readable
 
-
+#把uid转换成用户名 gid转换成组名
 def uid_convert(uid):
     return pwd.getpwuid(uid).pw_name
 def gid_convert(gid):
