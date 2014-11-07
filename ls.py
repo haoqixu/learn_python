@@ -19,6 +19,7 @@ parser.add_argument('-R', '--recursive', action='store_true', help='list subdire
 
 args = parser.parse_args()
 
+#如果使用-R 这将替换args.files
 if args.recursive:
     num_of_args = len(args.files)
     args_files_new = []
@@ -30,20 +31,20 @@ if args.recursive:
     args.files = args_files_new
 
 
+#遍历args.files列表中的路径参数
 num_of_args = len(args.files)
 n = 0
 while n < num_of_args:
 
     print('\033[0;33;40m'+os.path.realpath(args.files[n])+':\033[0m')
 
-    filename_list = output.get_filename_list(args.files[n], args.all, args.almost_all)
+    filename_list = output.get_filename_list(args.files[n], args.all, args.almost_all)      #n传递args.filesn中的路径 以及-a -A 获取路径下的文件列表
 
     num_of_files  = len(filename_list)
     m = 0
     while m < num_of_files:
-      print(output.gen_line(filename_list[m], args.long, args.numeric_uid_gid, args.inode, args.human_readable))
+      print(output.gen_line(filename_list[m], args.long, args.numeric_uid_gid, args.inode, args.human_readable))        #对文件列表中的每项打印生成信息行
       m += 1
-
     n += 1
 
 exit()
