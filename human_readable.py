@@ -4,27 +4,29 @@ import grp
 import pwd
 import stat
 
+
 #将文件大小转换成可读形式
 def size_convert(size):
     '''convert the size to human-readable form'''
 
-    SUFFIXES = ['KiB','MiB','GiB','TiB','PiB']
+    suffixes = ['KiB','MiB','GiB','TiB','PiB']
 
-    for suffix in SUFFIXES:
+    for suffix in suffixes:
         size /= 1024
         if size < 1024:
             return '{0:.1f} {1}'.format(size, suffix)
         else:
             raise ValueError('number too large.')
 
+
 #根据st_mode生成mode信息(例如-rwxrwxrwx)
 def mode_convert(st_mode):
     '''convert the bin-number-form mode to rwx-form'''
 
-    mode     = list(bin(st_mode)[-12:])         #for list.pop()
-    count    = 3                  #len(mode) // 3 - 1
-    mode_rwx = []
+    mode = list(bin(st_mode)[-12:])     #for list.pop()
+    count = 3   #len(mode) // 3 - 1
 
+    mode_rwx = []
     while count:
         if mode.pop() == '1':
             mode_rwx = ['x'] + mode_rwx
@@ -54,9 +56,9 @@ def mode_convert(st_mode):
             mode_rwx[-4] = 'S'
     if mode.pop() == '1':
         if mode_rwx[2]  == 'x':
-            mode_rwx[2]  = 's'
+            mode_rwx[2] = 's'
         else:
-            mode_rwx[2]  = 'S'
+            mode_rwx[2] = 'S'
     mode_rwx = ''.join(mode_rwx)
 
     if stat.S_ISREG(st_mode):
@@ -83,12 +85,15 @@ def mode_convert(st_mode):
 def time_convert(time_unreadable):
     '''convert the time to human-readable form'''
 
-    MONTHS = {1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May', 6:'Jun', 7:'Jul', 8:'Aus', 9:'Sep', 10:'Oct', 11:'Nov', 12:'Dec'}
+    months = {1:'Jan', 2:'Feb', 3:'Mar', 4:'Apr', 5:'May', 6:'Jun',
+            7:'Jul', 8:'Aus', 9:'Sep', 10:'Oct', 11:'Nov', 12:'Dec'}
 
     time_unreadable = time.localtime(time_unreadable)
-    time_readable = '{0} {1} {2:2.0f} {3:2.0f}:{4:2.0f}'.format( time_unreadable.tm_year,MONTHS[time_unreadable.tm_mon], time_unreadable.tm_mday, time_unreadable.tm_hour, time_unreadable.tm_min)
-
+    time_readable = '{0} {1} {2:2.0f} {3:2.0f}:{4:2.0f}'.format(
+            time_unreadable.tm_year,months[time_unreadable.tm_mon],
+            time_unreadable.tm_mday, time_unreadable.tm_hour, time_unreadable.tm_min)
     return time_readable
+
 
 #把uid转换成用户名 gid转换成组名
 def uid_convert(uid):
