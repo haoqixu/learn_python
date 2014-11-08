@@ -51,7 +51,7 @@ def gen_line(path, l_on = False, n_on = False, i_on = False, h_on = False):
 
         line = [inode,mode,links,uid,gid,size,time,filename,]
         if i_on:
-            return '{0[0]:7.0f} {0[1]} {0[2]:3.0f} {0[3]:7} {0[4]:7} {0[5]:5} {0[6]} {0[7]}'.format(line)
+            return '{0[0]:<7.0f} {0[1]} {0[2]:3.0f} {0[3]:7} {0[4]:7} {0[5]:5} {0[6]} {0[7]}'.format(line)
         else:
             line.pop(0)
             return '{0[0]} {0[1]:3.0f} {0[2]:7} {0[3]:7} {0[4]:5} {0[5]} {0[6]}'.format(line)
